@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>CB Style Deck — Web Edition</title>
+<style>
+  :root{
+    --cream:#FAF5EF;
+    --cream-2:#F3EBDF;
+    --ink:#332B24;
+    --burgundy:#781D2B;
+    --burgundy-deep:#5E1621;
+    --taupe:#6B5D4F;
+    --line:#DDD0BE;
+    --card:#FFFDF9;
+    --band-text:#FAF5EF;
+    --band-muted:#E8CFC4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --cream:#211B16;
+      --cream-2:#2A221B;
+      --ink:#EFE6D8;
+      --burgundy:#E4A49B;
+      --burgundy-deep:#3A1219;
+      --taupe:#B8A88F;
+      --line:#453A2E;
+      --card:#2A221B;
+      --band-text:#FAF5EF;
+      --band-muted:#E8CFC4;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:Georgia,'Iowan Old Style','Times New Roman',serif;
+    font-size:18px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  p,li{text-wrap:pretty}
+  h1,h2,h3{text-wrap:balance;line-height:1.2;margin:0}
+  a{color:var(--burgundy)}
+  section{scroll-margin-top:64px}
+
+  /* ---------- sticky nav ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--cream) 92%, transparent);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1080px;margin:0 auto;padding:4px 16px;
+    display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;
+    column-gap:2px;overflow-x:auto;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .topbar-inner::-webkit-scrollbar{display:none}
+  .topbar a{
+    display:inline-flex;align-items:center;min-height:36px;
+    padding:6px 9px;font-size:13.5px;line-height:1.2;
+    color:var(--taupe);text-decoration:none;white-space:nowrap;
+  }
+  .topbar a:hover,.topbar a:focus-visible{color:var(--burgundy);text-decoration:underline;text-underline-offset:3px}
+  .topbar .dot{color:var(--line);font-size:11px;user-select:none}
+  @media (max-width:900px){
+    .topbar-inner{justify-content:flex-start}
+  }
+  @media (max-width:560px){
+    .topbar a{font-size:12.5px;padding:6px 6px}
+    section{scroll-margin-top:64px}
+  }
+
+  /* ---------- bands ---------- */
+  .band{
+    background:var(--burgundy-deep);
+    background:linear-gradient(180deg,#84202F 0%, var(--burgundy) 55%, var(--burgundy-deep) 100%);
+    color:var(--band-text);
+  }
+  @media (prefers-color-scheme: dark){
+    .band{background:linear-gradient(180deg,#57141F 0%,#47121B 100%)}
+  }
+  .band-inner{max-width:720px;margin:0 auto;padding:72px 24px 64px;text-align:center}
+  .band .brandline{
+    font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--band-muted);margin:0 0 22px;
+  }
+  .band h1{font-size:52px;font-weight:400;letter-spacing:.01em}
+  .band .subtitle{
+    font-size:21px;line-height:1.55;font-style:italic;
+    color:#F6E9DC;max-width:560px;margin:22px auto 0;
+  }
+  .band .byline{
+    margin:30px auto 0;padding-top:22px;max-width:520px;
+    border-top:1px solid rgba(250,245,239,.28);
+    font-size:14.5px;line-height:1.6;color:var(--band-muted);
+  }
+  @media (max-width:560px){
+    .band-inner{padding:52px 20px 46px}
+    .band h1{font-size:38px}
+    .band .subtitle{font-size:18px}
+  }
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  .wrap-wide{max-width:1080px;margin:0 auto;padding:0 24px}
+  @media (max-width:560px){.wrap,.wrap-wide{padding:0 20px}}
+  .section{padding:64px 0 8px}
+  .section:first-of-type{padding-top:56px}
+  .kicker{
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--taupe);margin:0 0 10px;
+  }
+  h2{font-size:33px;font-weight:400;color:var(--burgundy);margin-bottom:18px}
+  @media (prefers-color-scheme: dark){h2{color:var(--burgundy)}}
+  h2 .thin{color:var(--taupe)}
+  .lede{font-size:19.5px;line-height:1.65}
+  .body p{margin:0 0 1.1em}
+  .rule{border:0;border-top:1px solid var(--line);margin:56px auto 0;max-width:720px}
+  .small-note{font-size:14.5px;color:var(--taupe);line-height:1.6}
+  .tag{
+    display:block;margin-top:8px;font-size:14.5px;font-style:italic;color:var(--burgundy);
+  }
+  .note-tag{
+    display:block;margin-top:8px;font-size:14.5px;font-style:italic;color:var(--burgundy);
+  }
+
+  /* contents list */
+  .contents{list-style:none;margin:8px 0 0;padding:0}
+  .contents li{
+    padding:16px 0;border-top:1px solid var(--line);font-size:18px;line-height:1.6;
+  }
+  .contents li:first-child{border-top:0;padding-top:6px}
+  .contents b{color:var(--burgundy);font-weight:700}
+
+  /* admire + board entries */
+  .entries{margin-top:10px}
+  .entry{padding:22px 0;border-top:1px solid var(--line)}
+  .entry:first-child{border-top:0}
+  .entry h3{font-size:21px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .entry h3 .camp{font-weight:400;font-style:italic}
+  .entry p{margin:0;font-size:17.5px;line-height:1.62}
+  .watch{
+    display:inline-flex;align-items:center;min-height:36px;margin-top:8px;
+    font-size:15.5px;color:var(--burgundy);text-decoration:underline;text-underline-offset:3px;
+  }
+  .watch:hover{color:var(--ink)}
+  .board-head{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:38px 0 2px;
+  }
+  .board-head h3{font-size:25px;color:var(--burgundy);font-weight:400}
+  .board-head .count{font-size:14px;color:var(--taupe);letter-spacing:.08em}
+  .star-note{font-size:14.5px;color:var(--taupe);font-style:italic;margin:10px 0 0}
+  .verdict-num{
+    display:inline-block;min-width:30px;color:var(--taupe);font-style:italic;font-weight:400;
+  }
+
+  /* script */
+  .script-quote{
+    margin:26px 0 8px;padding:34px 6px;
+    border-top:2px solid var(--burgundy);border-bottom:2px solid var(--burgundy);
+    font-size:24px;line-height:1.62;text-align:center;
+  }
+  @media (max-width:560px){.script-quote{font-size:20.5px;padding:26px 2px}}
+  .two-blocks{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  @media (max-width:640px){.two-blocks{grid-template-columns:1fr}}
+  .plain-block{background:var(--card);border:1px solid var(--line);padding:20px 22px}
+  .plain-block h3{font-size:16px;color:var(--burgundy);margin-bottom:8px}
+  .plain-block p{margin:0;font-size:16.5px;line-height:1.62}
+
+  /* videos */
+  .look{padding:34px 0 8px;border-top:1px solid var(--line)}
+  .look:first-of-type{border-top:0}
+  .look h3{font-size:24px;font-weight:400;color:var(--ink);margin-bottom:16px;text-align:center}
+  .look h3 .n{color:var(--burgundy)}
+  .look .caption{max-width:560px;margin:16px auto 0;text-align:center;font-size:17px;line-height:1.62}
+  .video-frame{
+    position:relative;width:100%;max-width:340px;margin:0 auto;
+    aspect-ratio:9/16;background:#17110D;
+    border:1px solid var(--line);
+    box-shadow:0 14px 34px rgba(51,43,36,.16);
+    overflow:hidden;
+  }
+  .video-frame iframe{
+    position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+  }
+  .video-fallback{text-align:center;margin-top:10px}
+  .video-fallback a{
+    display:inline-flex;align-items:center;min-height:36px;padding:4px 10px;
+    font-size:15px;font-style:italic;
+  }
+  .template-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:10px;
+  }
+  .template-grid.two{grid-template-columns:repeat(2,minmax(0,340px));justify-content:center}
+  @media (max-width:820px){
+    .template-grid{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto}
+    .template-grid.two{grid-template-columns:1fr}
+  }
+  .tspot h3{font-size:19px;font-weight:400;text-align:center;margin-bottom:12px;color:var(--ink)}
+  .tspot h3 .n{color:var(--burgundy)}
+  .tspot .hook{
+    text-align:center;font-style:italic;font-size:17px;line-height:1.55;
+    margin:14px auto 0;max-width:300px;color:var(--ink);
+  }
+  .subhead{
+    text-align:center;font-size:22px;font-weight:400;color:var(--burgundy);
+    margin:52px 0 20px;
+  }
+
+  /* system */
+  .system-list{margin-top:6px}
+  .system-item{padding:20px 0;border-top:1px solid var(--line);font-size:18px;line-height:1.65}
+  .system-item:first-child{border-top:0;padding-top:8px}
+  .system-item b{color:var(--burgundy)}
+
+  /* growth ideas */
+  .idea-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+  @media (max-width:640px){.idea-cards{grid-template-columns:1fr}}
+  .idea-card{background:var(--card);border:1px solid var(--line);padding:24px 24px 20px}
+  .idea-card h3{font-size:19.5px;line-height:1.35;margin-bottom:10px;color:var(--ink)}
+  .idea-card h3 .n{color:var(--burgundy)}
+  .idea-card p{margin:0;font-size:16.5px;line-height:1.62}
+  .idea-card .from{margin-top:14px;font-size:14px;color:var(--taupe);font-style:italic}
+  .drawer{margin-top:34px;text-align:center}
+  .drawer h3{font-size:20px;font-weight:400;color:var(--burgundy);margin-bottom:16px}
+  .drawer-tiles{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:560px;margin:0 auto;
+  }
+  @media (max-width:560px){.drawer-tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{
+    background:var(--cream-2);border:1px dashed var(--taupe);
+    padding:20px 8px 16px;color:var(--taupe);
+    filter:blur(.4px);opacity:.75;user-select:none;
+  }
+  .tile .tnum{font-size:22px;color:var(--burgundy);display:block;margin-bottom:4px}
+  .tile .tname{font-size:13.5px;font-style:italic}
+  .drawer p{max-width:520px;margin:18px auto 0;font-size:16px;font-style:italic;color:var(--taupe)}
+
+  /* questions */
+  .questions{list-style:none;margin:14px 0 0;padding:0;counter-reset:q}
+  .questions li{
+    padding:20px 0;border-top:1px solid var(--line);
+    font-size:20px;line-height:1.55;
+  }
+  .questions li:first-child{border-top:0}
+  .questions .qn{color:var(--burgundy);font-style:italic;margin-right:10px}
+  .hint{
+    margin-top:26px;text-align:center;font-style:italic;font-size:18.5px;
+    color:var(--burgundy);line-height:1.6;
+  }
+
+  /* closing band */
+  .closing{margin-top:72px}
+  .closing .band-inner{padding:64px 24px 58px;text-align:left;max-width:720px}
+  .closing h2{color:var(--band-text);font-size:36px;text-align:center;margin-bottom:28px}
+  .closing p{color:#F6E9DC;font-size:17.5px;line-height:1.7;margin:0 0 1.15em}
+  .closing .benefits{margin:26px 0;padding:22px 0;border-top:1px solid rgba(250,245,239,.28);border-bottom:1px solid rgba(250,245,239,.28)}
+  .closing .benefits p{margin:0 0 .9em}
+  .closing .benefits p:last-child{margin-bottom:0}
+  .closing .benefits b{color:#fff}
+  .closing .sort-line{font-size:19px}
+  .closing .signoff{
+    margin-top:30px;text-align:center;font-size:14.5px;color:var(--band-muted);line-height:1.7;
+  }
+  @media (max-width:560px){.closing h2{font-size:30px}}
+
+  @media print{
+    .topbar{display:none}
+    .band,.closing .band{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .video-frame{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Sections">
+  <div class="topbar-inner">
+    <a href="#ask">The ask</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#admire">Ads we admire</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#board">The AI board</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#script">The script</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#looks">Six looks</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#template">Template</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#system">The system</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#ideas">Growth ideas</a><span class="dot" aria-hidden="true">·</span>
+    <a href="#questions">Questions</a>
+  </div>
+</nav>
+
+<header class="band">
+  <div class="band-inner">
+    <h1>Culinary Backstreets</h1>
+    <p class="subtitle">A visual style exploration — ads judged, one script in six looks, and a template that&nbsp;repeats.</p>
+    <p class="byline">Prepared by JJ James — Creative Growth Engineer (consulting) · with Zux, the AI agent he&nbsp;directs.</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- 2 · What you asked for -->
+  <section class="section" id="ask">
+    <div class="wrap body">
+      <h2>What you asked&nbsp;for</h2>
+      <p class="lede">The visual only. Copy is covered — your editorial team and your data handle that. This is about the look. Honest guidance on AI in ads. Your words: you&rsquo;re &ldquo;not familiar with really creative uses of AI in ad creation&rdquo; and &ldquo;not super confident&rdquo; — you want someone to say these 10 ads are dope, these 10 suck. A mood board to react to. Once a look lands, your team builds its own version and a template it can remake across cities and&nbsp;tours.</p>
+      <p>So this deck has two halves. First, what you asked for: other people&rsquo;s ads, judged. Second, CB test spots — written and made by JJ and Zux (AI agent), in our own words from a brand audit — so you can judge the looks in motion. The copy in them is a stand-in; your team writes the real&nbsp;thing.</p>
+    </div>
+    <div class="wrap" style="margin-top:44px">
+      <h2>What&rsquo;s in&nbsp;here</h2>
+      <ol class="contents">
+        <li><b>1 · Ads JJ likes</b> — great travel ads in any technique. The taste we&rsquo;re aiming&nbsp;at.</li>
+        <li><b>2 · The AI board</b> — 10 dope / 10 suck, every one an ad a real brand actually ran. Watch links on&nbsp;each.</li>
+        <li><b>3 · Our script, six ways</b> — one 30-second script about CB, made in six visual styles. Same words every time, so the only thing to judge is the&nbsp;look.</li>
+        <li><b>4 · JJ&rsquo;s Growth Ideas</b> — two shown near the end; the rest are teased throughout the deck and kept in the&nbsp;drawer.</li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 4 · Ads JJ likes -->
+  <section class="section" id="admire">
+    <div class="wrap">
+      <h2>Ads JJ&nbsp;likes</h2>
+      <div class="entries">
+        <article class="entry">
+          <h3>Expedia — <span class="camp">&ldquo;Lemons&rdquo;</span></h3>
+          <p>One small motif (a lemon&rsquo;s journey) carries a whole brand film. Proof a tiny repeated image can hold a big&nbsp;idea.</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=ysLtyqymkYs" target="_blank" rel="noopener">Watch →</a>
+        </article>
+        <article class="entry">
+          <h3>Tourism New Zealand — <span class="camp">&ldquo;Good Morning World&rdquo;</span></h3>
+          <p>A named local says good morning from a real place, same format every day. A person, a place, a ritual — the lane CB was born for, already&nbsp;proven.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 07 — in the drawer</span>
+          <a class="watch" href="https://www.youtube.com/watch?v=8tiooH-96Lg" target="_blank" rel="noopener">Watch →</a>
+        </article>
+        <article class="entry">
+          <h3>Airbnb — <span class="camp">&ldquo;Get an Airbnb&rdquo;</span></h3>
+          <p>An illustrated world, one consistent look, endless stories. A style system a whole team can keep&nbsp;making.</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=TAf1_23Ihmw" target="_blank" rel="noopener">Watch →</a>
+        </article>
+        <article class="entry">
+          <h3>Inspired by Iceland</h3>
+          <p>Deadpan humor, the place itself as the character. Tourism advertising that trusts the audience to be&nbsp;smart.</p>
+          <span class="tag">JJ&rsquo;s Note: Ansel should make something like this.</span>
+          <a class="watch" href="https://www.youtube.com/watch?v=enMwwQy_noI" target="_blank" rel="noopener">Watch →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 5 + 6 · The AI board -->
+  <section class="section" id="board">
+    <div class="wrap">
+      <h2>The AI&nbsp;board</h2>
+      <p class="star-note"><span style="color:var(--burgundy)">★</span> marks a service brand — it sells an experience, not a product in a&nbsp;box.</p>
+
+      <div class="board-head"><h3>DOPE</h3></div>
+      <p class="small-note" style="font-size:16.5px;color:var(--ink)">AI used with taste. Every entry is a real ad that&nbsp;ran.</p>
+      <div class="entries">
+        <article class="entry">
+          <h3><span class="verdict-num">1.</span>Heinz — <span class="camp">&ldquo;A.I. Ketchup&rdquo; (2022)</span></h3>
+          <p>They typed &ldquo;ketchup&rdquo; into an image generator and it kept drawing Heinz. The AI output was the ad — AI as proof, not fake&nbsp;footage.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 01 — shown in Growth Ideas below</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">2.</span>Pedigree — <span class="camp">&ldquo;Adoptable&rdquo; (2024)</span></h3>
+          <p>AI fixed real shelter dogs&rsquo; phone photos so the real dogs could star in ads near their own shelters. Half were adopted in two&nbsp;weeks.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 03 — in the drawer</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">3.</span>Cadbury — <span class="camp">&ldquo;Not Just a Cadbury Ad&rdquo; (2021)</span></h3>
+          <p>AI rebuilt a star&rsquo;s face and voice so he could name 2,000+ tiny neighborhood shops in their own ads. The little guy is the&nbsp;hero.</p>
+          <span class="tag">JJ&rsquo;s Growth Ideas 04 + 08 — in the drawer</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">4.</span>Nike — <span class="camp">&ldquo;Never Done Evolving&rdquo; (2022)</span></h3>
+          <p>Machine learning studied Serena Williams at 17 and at 35 from real archive, then played them against each other. Something no camera could&nbsp;shoot.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 05 — in the drawer</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">5.</span>Virgin Voyages — <span class="camp">&ldquo;Jen AI&rdquo; (2023) ★</span></h3>
+          <p>A travel service (like CB) let customers make invite videos with a licensed AI J.Lo — and the launch film jokes about the AI&rsquo;s limits instead of hiding&nbsp;them.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 02 — shown in Growth Ideas below</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">6.</span>Coca-Cola — <span class="camp">&ldquo;Masterpiece&rdquo; (2023)</span></h3>
+          <p>A Coke bottle travels through famous paintings. AI worked inside a human-run pipeline — the machine invisible, the craft&nbsp;visible.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">7.</span>Dove — <span class="camp">&ldquo;The Code&rdquo; (2024)</span></h3>
+          <p>Dove typed beauty prompts into a real AI tool on screen, showed the synthetic sameness, and pledged never to use AI to create women&rsquo;s images. The ad is the&nbsp;disclosure.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 09 — in the drawer</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">8.</span>Popeyes — <span class="camp">&ldquo;Wrap Battle&rdquo; (2025)</span></h3>
+          <p>A rival relaunched a product a day after Popeyes. The answer — a full AI diss-track video — took under three days. Speed was the point; humans kept the&nbsp;jokes.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 10 — in the drawer</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">9.</span>eToro — <span class="camp">Paris Olympics (2024) ★</span></h3>
+          <p>First major campaign made almost entirely with AI, run in 45 markets — and no public fight, because it was a stylized brand world, not fake&nbsp;customers.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">10.</span>Coca-Cola — <span class="camp">&ldquo;Create Real Magic&rdquo; (2023)</span></h3>
+          <p>Coke opened its own archive inside an AI sandbox and let fans make the art. Winners ran in Times Square. AI as an invitation, not a&nbsp;replacement.</p>
+          <span class="tag">JJ&rsquo;s Growth Idea 11 — in the drawer</span>
+        </article>
+      </div>
+
+      <div class="board-head"><h3>SUCK</h3></div>
+      <div class="entries">
+        <article class="entry">
+          <h3><span class="verdict-num">1.</span>Coca-Cola — <span class="camp">AI &ldquo;Holidays Are Coming&rdquo; remakes (2024, 2025)</span></h3>
+          <p>AI regenerated the beloved 1995 truck film, twice. It tested perfectly; the public hated it anyway. Coke went back to real footage for&nbsp;2026.</p>
+          <span class="note-tag">JJ&rsquo;s Note: the CB rule — never let AI re-render the heritage. The real footage is the product.</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">2.</span>Toys&rdquo;R&rdquo;Us — <span class="camp">&ldquo;The Origin of Toys&rdquo;R&rdquo;Us&rdquo; (2024)</span></h3>
+          <p>A founder&rsquo;s true origin story told in Sora dream-logic — shifting faces, plastic look. A real heritage made to read as fake. CB&rsquo;s founding story is the same&nbsp;genre.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">3.</span>McDonald&rsquo;s Netherlands — <span class="camp">AI Christmas film (2025)</span></h3>
+          <p>Fully AI Christmas ad, pulled three days after posting. A giant can absorb one of these; a company CB&rsquo;s size gets defined by&nbsp;it.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">4.</span>Kalshi — <span class="camp">&ldquo;World Gone Mad&rdquo; (2025)</span></h3>
+          <p>Total generated chaos. A hit for Kalshi, whose brand is chaos — on a trust brand, the same look reads as&nbsp;slop.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">5.</span>Vodafone Germany — <span class="camp">AI presenter (2025) ★</span></h3>
+          <p>A service brand fronted by a woman who doesn&rsquo;t exist. Viewers caught her disappearing moles; the AI was admitted only in the comments. CB&rsquo;s exact nightmare: the guides are the&nbsp;front-people.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">6.</span>Levi&rsquo;s × Lalaland.ai — <span class="camp">AI &ldquo;diversity&rdquo; models (2023)</span></h3>
+          <p>AI models announced as a diversity move — read instantly as a way to avoid hiring real people. Walked back within a&nbsp;week.</p>
+          <span class="note-tag">JJ&rsquo;s Note: CB&rsquo;s brand is paying and crediting real people. Any AI move that reads as skipping them is out.</span>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">7.</span>Guess — <span class="camp">AI model in Vogue (2025)</span></h3>
+          <p>A photoreal fake woman in fashion&rsquo;s temple, disclosed in tiny print by the spine. The verdict that stuck: &ldquo;makes you look&nbsp;cheap.&rdquo;</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">8.</span>J.Crew × Vans — <span class="camp">AI posts, undisclosed (2025)</span></h3>
+          <p>AI campaign photos posted without saying they were AI — backward feet, melting hands. Stealth is the&nbsp;sin.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">9.</span>Volvo Saudi Arabia — <span class="camp">&ldquo;Come Back Stronger&rdquo; (2025)</span></h3>
+          <p>An all-AI car ad with no car in it. Mocked, disowned by Volvo&rsquo;s own global HQ, withdrawn. When the tool becomes the brief, the product leaves its own&nbsp;ad.</p>
+        </article>
+        <article class="entry">
+          <h3><span class="verdict-num">10.</span>Svedka — <span class="camp">&ldquo;Shake Your Bots Off,&rdquo; Super Bowl (2026)</span></h3>
+          <p>The most openly AI Super Bowl spot — viewers ranked it 53rd of 54. When AI is the whole story, the story becomes&nbsp;AI.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 7 · The script -->
+  <section class="section" id="script">
+    <div class="wrap">
+      <h2>Our script — one set of words, six&nbsp;looks</h2>
+      <blockquote class="script-quote">
+        Forget the landmarks. The real story of a city is told through its food — in the neighborhoods, at the market stalls, in the small kitchens you&rsquo;d never find on your own. We take you there — to meet the masters. The unsung heroes who&rsquo;ve made one thing, perfectly, their whole lives. You taste their work. You hear their stories. And a tradition stays alive. Culinary Backstreets. Food walks, led by locals, in more than 25 cities. Travel, with&nbsp;bite.
+      </blockquote>
+      <div class="two-blocks">
+        <div class="plain-block">
+          <p><b>Why one script?</b> So the look is the only variable. Same words, same voice, same 30 seconds — you&rsquo;re judging pure visual&nbsp;style.</p>
+        </div>
+        <div class="plain-block">
+          <p><b>Ground rules we held:</b> All illustration / animation. Nothing fakes a real tour, guide or customer. AI does the drawing; the words are ours, written for this test — a stand-in for your team&rsquo;s&nbsp;copy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 8 · Six looks -->
+  <section class="section" id="looks">
+    <div class="wrap">
+      <h2>The six&nbsp;looks</h2>
+      <p class="lede">Six finished spots. Same script, same voice — the only thing that changes is the&nbsp;look.</p>
+
+      <article class="look">
+        <h3><span class="n">1 ·</span> Sketchbook</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1zft4r2r058oy1m9O5IUdZTW9_g0cuAc8/preview" title="Sketchbook spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1zft4r2r058oy1m9O5IUdZTW9_g0cuAc8/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">Pencil, ink and watercolor — a traveler&rsquo;s notebook come to life. The loosest hand in the set, and the most human; every frame feels drawn on the&nbsp;spot.</p>
+      </article>
+
+      <article class="look">
+        <h3><span class="n">2 ·</span> Poster</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1iL4t6NsbiY2kV-Fax9ppcCM_KXJbUF81/preview" title="Poster spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1iL4t6NsbiY2kV-Fax9ppcCM_KXJbUF81/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">Two-color screen-print. Bold, cheap to remake, reads at a glance in a&nbsp;feed.</p>
+      </article>
+
+      <article class="look">
+        <h3><span class="n">3 ·</span> Vintage photo</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1Z1CECSyfqlGw9_KglVjx7AmeFTXtiaSL/preview" title="Vintage photo spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1Z1CECSyfqlGw9_KglVjx7AmeFTXtiaSL/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">1970s snapshot warmth. The boundary case: it fakes documentary, so its honest use is as a grade over CB&rsquo;s real archive — never generated&nbsp;scenes.</p>
+      </article>
+
+      <article class="look">
+        <h3><span class="n">4 ·</span> Manga</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1xx7MRTZd4Uce45degUEinnj0HNgoeKtB/preview" title="Manga spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1xx7MRTZd4Uce45degUEinnj0HNgoeKtB/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">Black-and-white ink; the only color is the burgundy end card. Strongest likeness of the set — a possible Tokyo / Osaka&nbsp;variant.</p>
+      </article>
+
+      <article class="look">
+        <h3><span class="n">5 ·</span> Cut-paper</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1db0YDA75YUxOm286ivYeFNCFDGBl1-WD/preview" title="Cut-paper spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1db0YDA75YUxOm286ivYeFNCFDGBl1-WD/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">Torn-paper stop-motion. The most handmade of the set — the master is a paper design, so he never&nbsp;drifts.</p>
+      </article>
+
+      <article class="look">
+        <h3><span class="n">6 ·</span> Clay</h3>
+        <div class="video-frame">
+          <iframe src="https://drive.google.com/file/d/1DdWJjvV6P0ntj6r4JiXN3AZTWyDB4wOA/preview" title="Clay spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+        </div>
+        <div class="video-fallback"><a href="https://drive.google.com/file/d/1DdWJjvV6P0ntj6r4JiXN3AZTWyDB4wOA/view" target="_blank" rel="noopener">Watch the spot</a></div>
+        <p class="caption">Claymation miniatures. Tactile and unmistakably handmade; a clay master stays the same man in every&nbsp;shot.</p>
+      </article>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 9 · Template -->
+  <section class="section" id="template">
+    <div class="wrap">
+      <h2>Styles and&nbsp;Template</h2>
+      <p class="lede" style="text-align:center;max-width:600px;margin:0 auto">One look — Manga — three different ads. Same stall, same master, same close. Only the story&nbsp;changes.</p>
+    </div>
+    <div class="wrap-wide" style="margin-top:34px">
+      <div class="template-grid">
+        <article class="tspot">
+          <h3><span class="n">1 ·</span> The script spot</h3>
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1xx7MRTZd4Uce45degUEinnj0HNgoeKtB/preview" title="Manga — the script spot — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="video-fallback"><a href="https://drive.google.com/file/d/1xx7MRTZd4Uce45degUEinnj0HNgoeKtB/view" target="_blank" rel="noopener">Watch the spot</a></div>
+          <p class="hook">&ldquo;You taste their work. You hear their&nbsp;stories.&rdquo;</p>
+        </article>
+        <article class="tspot">
+          <h3><span class="n">2 ·</span> The family</h3>
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1cxpdJGGXD0pG065mieTX2OwNR7Ez5Br4/preview" title="Manga — the family — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="video-fallback"><a href="https://drive.google.com/file/d/1cxpdJGGXD0pG065mieTX2OwNR7Ez5Br4/view" target="_blank" rel="noopener">Watch the spot</a></div>
+          <p class="hook">&ldquo;You planned every minute. He planned&nbsp;lunch.&rdquo;</p>
+        </article>
+        <article class="tspot">
+          <h3><span class="n">3 ·</span> The solo traveler</h3>
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1TpVbbcP7g43liuPFsEJZee0I81NbY0TI/preview" title="Manga — the solo traveler — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="video-fallback"><a href="https://drive.google.com/file/d/1TpVbbcP7g43liuPFsEJZee0I81NbY0TI/view" target="_blank" rel="noopener">Watch the spot</a></div>
+          <p class="hook">&ldquo;You can&rsquo;t read the menu. He already&nbsp;knows.&rdquo;</p>
+        </article>
+      </div>
+
+      <h3 class="subhead">Two more, made the same&nbsp;way</h3>
+      <div class="template-grid two">
+        <article class="tspot">
+          <h3><span class="n">4 ·</span> The committee</h3>
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1cfRHVcynOdQwOMAf_xlhRL50m8uC-Ga4/preview" title="Manga — the committee — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="video-fallback"><a href="https://drive.google.com/file/d/1cfRHVcynOdQwOMAf_xlhRL50m8uC-Ga4/view" target="_blank" rel="noopener">Watch the spot</a></div>
+          <p class="hook">&ldquo;Six opinions. One&nbsp;table.&rdquo;</p>
+        </article>
+        <article class="tspot">
+          <h3><span class="n">5 ·</span> The ritual</h3>
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1PBZ0eJHDn37WxufUR9PNNLCJ2R3RSIt8/preview" title="Manga — the ritual — tap to play" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>
+          </div>
+          <div class="video-fallback"><a href="https://drive.google.com/file/d/1PBZ0eJHDn37WxufUR9PNNLCJ2R3RSIt8/view" target="_blank" rel="noopener">Watch the spot</a></div>
+          <p class="hook">&ldquo;He&rsquo;s opened this stall for thirty years. Today, you were there for&nbsp;it.&rdquo;</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 10 · The system -->
+  <section class="section" id="system">
+    <div class="wrap">
+      <h2>The&nbsp;system</h2>
+      <div class="system-list">
+        <p class="system-item"><b>The spine never changes.</b> The look, the stall, the master, the beats, the closing line — that&rsquo;s the signature. A stranger should know it&rsquo;s Culinary Backstreets in one&nbsp;second.</p>
+        <p class="system-item"><b>Only two things swap.</b> Who&rsquo;s traveling, and what&rsquo;s getting in their way — the frazzled parent, the lost solo traveler, the group that can&rsquo;t agree. Each one drops into the same&nbsp;bones.</p>
+        <p class="system-item"><b>The rest is spec, not taste.</b> Same opening beat, same type, same burgundy end card, same length. A new ad is assembled in days, not invented from&nbsp;scratch.</p>
+        <p class="system-item"><b>Every ad is named for its swaps.</b> So when the numbers come back, we know exactly which traveler — and which problem — earned their&nbsp;keep.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 11 · Growth ideas -->
+  <section class="section" id="ideas">
+    <div class="wrap">
+      <h2>JJ&rsquo;s Growth&nbsp;Ideas</h2>
+      <p class="lede">Two built out in full — the samples. The rest stay in the drawer, and the drawer opens in&nbsp;conversation.</p>
+      <div class="idea-cards">
+        <article class="idea-card">
+          <h3><span class="n">01 ·</span> The Master It Can&rsquo;t Imagine</h3>
+          <p>Ask AI to draw &ldquo;a food tour&rdquo; and it hands you the tourist cliché. Then cut to the master it can&rsquo;t imagine — Hüsam Hoca, from your own archive. The machine&rsquo;s failure is the&nbsp;proof.</p>
+          <p class="from">From the board: Heinz — &ldquo;A.I. Ketchup&rdquo;</p>
+        </article>
+        <article class="idea-card">
+          <h3><span class="n">02 ·</span> The Empty Chair</h3>
+          <p>Every booking carries one seat to give away — a personal guest pass that travels as an invitation, not a coupon, with the fraud rules drawn in. Virality, with the math&nbsp;done.</p>
+          <p class="from">From the board: Virgin Voyages — &ldquo;Jen AI&rdquo;</p>
+        </article>
+      </div>
+      <div class="drawer">
+        <h3>Also in the&nbsp;drawer</h3>
+        <div class="drawer-tiles" aria-hidden="true">
+          <div class="tile"><span class="tnum">03</span></div>
+          <div class="tile"><span class="tnum">04</span></div>
+          <div class="tile"><span class="tnum">05</span></div>
+          <div class="tile"><span class="tnum">06</span></div>
+        </div>
+        <p>Blurred on purpose — and the drawer holds more than fits here. Ask, and we&rsquo;ll open&nbsp;it.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 12 · Questions -->
+  <section class="section" id="questions">
+    <div class="wrap">
+      <h2>Three questions for next&nbsp;time</h2>
+      <p style="font-size:18px">A short call to walk the board and the spots and hear your sort. Come with answers to these three if you have them — or let them sit until next&nbsp;time:</p>
+      <ol class="questions">
+        <li><span class="qn">1 ·</span>How are the current ads doing — and what would &ldquo;working&rdquo; look like in&nbsp;numbers?</li>
+        <li><span class="qn">2 ·</span>Could an ad name the master, the dish, the neighborhood, and the date — and could we build from the archive to do&nbsp;it?</li>
+        <li><span class="qn">3 ·</span>Do the current ads sound like the Culinary Backstreets you know — and who do you picture them talking&nbsp;to?</li>
+      </ol>
+      <p class="hint">The walks are specific — real names, real dishes, real streets. We&rsquo;d like the ads to feel like that&nbsp;too.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- 13 · Thank you -->
+<footer class="band closing">
+  <div class="band-inner">
+    <h2>Thank&nbsp;you</h2>
+    <p>That&rsquo;s the whole deck — the ads we admire, the AI board, one script in six looks, and a few ideas kept in the&nbsp;drawer.</p>
+    <p>This deck is itself the demo. It was made by a two-person desk — JJ, and Zux, the AI agent he directs. Taste and the final call stay human; the machine supplies the volume. Pointed at Culinary Backstreets, that desk learns your archive, your voice, and your&nbsp;guests.</p>
+    <div class="benefits">
+      <p><b>Speed with taste</b> — new variants in days, every one passed through a human filter&nbsp;first.</p>
+      <p><b>Context CB owns</b> — your photos, stories, and reviews become a working asset. It compounds, and it stays&nbsp;yours.</p>
+      <p><b>One voice, every city</b> — the template system you asked for: same look, same sound, every&nbsp;city.</p>
+    </div>
+    <p class="sort-line">The sort is yours. Next time, tell us which looks feel like Culinary Backstreets — and we&rsquo;ll open the&nbsp;drawer.</p>
+    <p class="signoff">JJ James — Creative Growth Engineer (consulting) · Zux — the agent he&nbsp;directs.</p>
+  </div>
+</footer>
+
+</body>
+</html>

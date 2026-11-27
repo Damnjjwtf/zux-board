@@ -13,108 +13,104 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#F7F7F7;
-    --cream-2:#ECECEC;
+    --bg:#F7F7F7;
+    --surface:#FFFFFF;
+    --soft:#ECECEC;
     --ink:#141414;
     --muted:#616161;
-    --green:#0A66C2;
-    --green-deep:#084E96;
+    --blue:#0A66C2;
+    --blue-deep:#084E96;
     --line:#DBDBDB;
-    --card:#FFFFFF;
-    --band:#0A66C2;
-    --band-text:#FFFFFF;
-    --band-muted:#CFE4F7;
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --cream:#101010;
-      --cream-2:#1B1B1B;
+      --bg:#101010;
+      --surface:#1B1B1B;
+      --soft:#1B1B1B;
       --ink:#F2F2F2;
       --muted:#A6A6A6;
-      --green:#5EA9E6;
-      --green-deep:#0B2A45;
+      --blue:#5EA9E6;
+      --blue-deep:#0A66C2;
       --line:#333333;
-      --card:#1B1B1B;
-      --band:#0A66C2;
-      --band-text:#FFFFFF;
-      --band-muted:#CFE4F7;
     }
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     margin:0;
-    background:var(--cream);
+    background:var(--bg);
     color:var(--ink);
     font-family:'Roboto Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-    font-size:17px;
-    line-height:1.65;
+    font-size:16.5px;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
   p,li{text-wrap:pretty}
-  h1,h2,h3{text-wrap:balance;line-height:1.22;margin:0}
-  a{color:var(--green)}
-  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
-  .hero{padding:56px 0 8px}
+  h1,h2,h3{text-wrap:balance;line-height:1.25;margin:0}
+  a{color:var(--blue)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 22px}
+  .hero{padding:76px 0 10px}
   .eyebrow{
-    font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--green);margin:0 0 14px;
+    font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--blue);margin:0 0 18px;
   }
-  h1{font-size:40px;font-weight:700;letter-spacing:-.01em}
-  .lede{font-size:21px;line-height:1.55;margin:20px 0 0;color:var(--ink)}
-  section{padding:34px 0 6px}
-  h2{font-size:26px;font-weight:700;margin:0 0 12px}
-  h3{font-size:19px;font-weight:700;margin:0 0 6px}
+  h1{font-size:36px;font-weight:700;letter-spacing:-.01em}
+  .lede{font-size:19px;line-height:1.6;margin:22px 0 0;color:var(--ink)}
+  section{padding:46px 0 8px}
+  h2{font-size:23px;font-weight:700;margin:0 0 14px}
+  h3{font-size:17px;font-weight:700;margin:0 0 6px}
   p{margin:0 0 14px}
   .muted{color:var(--muted)}
   ol.steps{margin:6px 0 14px;padding-left:22px}
   ol.steps li{margin:0 0 8px}
   .note{
-    background:var(--cream-2);
+    background:var(--soft);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 18px;
+    font-size:15px;
+    margin:20px 0 4px;
+  }
+  .cards{display:grid;gap:12px;margin:20px 0 6px}
+  .card{
+    background:var(--surface);
     border:1px solid var(--line);
     border-radius:12px;
-    padding:14px 18px;
-    font-size:16px;
-    margin:18px 0 4px;
+    padding:22px 24px;
   }
-  .cards{display:grid;gap:14px;margin:18px 0 6px}
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:18px 20px;
-  }
-  .card p{margin:0;font-size:17px}
+  .card p{margin:0;font-size:16px}
   .card .tag{
-    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--green);margin:0 0 8px;
+    display:inline-block;font-size:11px;font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--blue);margin:0 0 8px;
   }
   .cta{
-    background:var(--band);
-    color:var(--band-text);
-    border-radius:16px;
-    padding:28px 24px;
-    margin:36px 0 8px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:30px 26px;
+    margin:48px 0 8px;
   }
-  .cta h2{color:var(--band-text)}
-  .cta p{color:var(--band-text)}
-  .cta .small{color:var(--band-muted);font-size:16px;margin:0}
+  .cta .small{color:var(--muted);font-size:15px;margin:0}
   .btn{
     display:inline-block;
-    background:var(--band-text);
-    color:var(--green-deep);
+    background:var(--blue-deep);
+    color:#FFFFFF;
     font-weight:700;
     text-decoration:none;
-    padding:13px 22px;
+    padding:13px 24px;
     border-radius:999px;
     margin:6px 0 16px;
   }
-  footer{padding:30px 0 48px;color:var(--muted);font-size:16px}
+  @media (prefers-color-scheme: dark){
+    .btn{background:var(--blue);color:#0B2A45}
+  }
+  footer{padding:34px 0 52px;color:var(--muted);font-size:15px}
   footer p{margin:0 0 6px}
   @media (max-width:560px){
-    h1{font-size:32px}
-    .lede{font-size:19px}
-    .hero{padding-top:40px}
+    h1{font-size:30px}
+    .lede{font-size:17.5px}
+    .hero{padding-top:52px}
+    section{padding:38px 0 6px}
   }
 </style>
 </head>
@@ -124,85 +120,85 @@
   <header class="hero">
     <p class="eyebrow">Read this before&nbsp;December</p>
     <h1>Download your LinkedIn data before it's gone. Then put it to&nbsp;work.</h1>
-    <p class="lede">Right now you can download a file from LinkedIn that lists every person you are connected to, with the company they work at and the job they hold. In December that file gets thinner. The companies and job titles come out, and once they are out, you cannot get them&nbsp;back.</p>
+    <p class="lede">Right now, LinkedIn lets you download a file listing every person you are connected to, with their company and job title. In December, the companies and titles come out. Once they are out, you cannot get them&nbsp;back.</p>
   </header>
 
   <section>
     <h2>What LinkedIn is taking out</h2>
-    <p>Names, profile links, and the dates you connected stay in the download. Email addresses, current companies, and job titles come&nbsp;out.</p>
-    <p>LinkedIn has not announced the exact day in December, so work to <strong>November 30</strong> and you are&nbsp;safe.</p>
-    <p>Why it matters: the company and title columns turn a list of names into a map of where your people actually work&nbsp;today.</p>
+    <p>Names, profile links, and connection dates stay. Email addresses, current companies, and job titles&nbsp;go.</p>
+    <p>LinkedIn has not named the exact day. Work to <strong>November 30</strong> and you are&nbsp;safe.</p>
+    <p>The company and title columns are what turn a list of names into a map of where your people work&nbsp;today.</p>
   </section>
 
   <section>
     <h2>Get the full file, two minutes</h2>
-    <p class="muted">Do this on a computer, signed in to&nbsp;LinkedIn:</p>
+    <p class="muted">On a computer, signed in to&nbsp;LinkedIn:</p>
     <ol class="steps">
       <li>Click your profile photo, then <strong>Settings &amp; Privacy</strong>.</li>
       <li>Choose <strong>Data privacy</strong>, then <strong>Download your data</strong>.</li>
       <li>Pick the <strong>larger archive</strong>, the one with everything in it.</li>
       <li>Click <strong>Request archive</strong>.</li>
     </ol>
-    <div class="note">LinkedIn needs up to a day to build it, then emails you a link. The link dies after 72 hours. When the email lands, download the file and keep it somewhere&nbsp;safe.</div>
+    <div class="note">LinkedIn takes up to a day to build it, then emails a link that lives for 72 hours. Download the file when the email lands, and keep it somewhere&nbsp;safe.</div>
   </section>
 
   <section>
     <h2>The file holds more than names</h2>
-    <p>The connections list is the part with the deadline. The rest of the archive is your whole working life on the platform, in plain&nbsp;spreadsheets:</p>
+    <p>The connections carry the deadline. The rest of the archive is your working life on the platform, in plain&nbsp;spreadsheets:</p>
     <ol class="steps">
-      <li><strong>Every post you have ever published</strong>, full text, with dates.</li>
-      <li><strong>Every comment you have written</strong> and every reaction you have handed out.</li>
-      <li><strong>Your messages</strong>, the whole inbox, sent and received.</li>
-      <li><strong>Endorsements and recommendations</strong>, the ones you gave and the ones people wrote about you.</li>
-      <li><strong>Your jobs, schools, skills, and certifications</strong>, in order, with dates.</li>
-      <li><strong>Who you follow</strong>, and the file where LinkedIn lists what it thinks you care about, the guesses it sells to&nbsp;advertisers.</li>
+      <li><strong>Every post you have published</strong>, full text, with dates.</li>
+      <li><strong>Every comment you have written</strong>, every reaction you have given.</li>
+      <li><strong>Your full message history</strong>, sent and received.</li>
+      <li><strong>Endorsements and recommendations</strong>, given and received.</li>
+      <li><strong>Your jobs, education, skills, and certifications</strong>, with dates.</li>
+      <li><strong>Who you follow</strong>, and what LinkedIn thinks you are interested in, the guesses it sells to&nbsp;advertisers.</li>
     </ol>
-    <p>The connections are why you grab it this weekend. The rest is why you keep it for&nbsp;good.</p>
+    <p>Grab it for the connections. Keep it for everything&nbsp;else.</p>
   </section>
 
   <section>
     <h2>Then send it to me</h2>
-    <p>Think of me as your creative growth engineer. My job is turning data you already own into growth you can use. Send me the file and here is what comes&nbsp;back:</p>
+    <p>Think of me as your creative growth engineer. I turn the data you already own into growth you can use. Send me the file, and here is what comes&nbsp;back:</p>
     <div class="cards">
       <div class="card">
         <p class="tag">The map</p>
         <h3>Your network, drawn</h3>
-        <p>Every connection sorted by company and role, so you can see your strong clusters, your thin spots, and the warmest route to any person or company on your&nbsp;list.</p>
+        <p>Every connection sorted by company and role. Your strong clusters, your thin spots, and the warmest route to anyone on your&nbsp;list.</p>
       </div>
       <div class="card">
         <p class="tag">New business</p>
         <h3>Warm leads, in order</h3>
-        <p>The people most likely to become your next clients, ranked, with the reason each one sits where they do. Your first calls go to people who already know your&nbsp;name.</p>
+        <p>The people most likely to become clients, ranked, with the reason for each ranking. First calls go to people who know your&nbsp;name.</p>
       </div>
       <div class="card">
         <p class="tag">Job hunting</p>
         <h3>The right five names</h3>
-        <p>At each company you are aiming at, the five people worth contacting first, plus the old conversations that went quiet and deserve a&nbsp;reply.</p>
+        <p>At each company you want, the five people to contact first, plus the quiet conversations worth&nbsp;reviving.</p>
       </div>
       <div class="card">
         <p class="tag">Your story</p>
         <h3>Your posts, scored</h3>
-        <p>Everything you have published, lined up against how it performed. You see what landed, what flopped, and how your thinking has shifted year by year. That is the brief for what to write&nbsp;next.</p>
+        <p>Everything you have published, matched against how it performed. What landed, what flopped, and what to write&nbsp;next.</p>
       </div>
       <div class="card">
         <p class="tag">Your voice</p>
         <h3>An AI that sounds like you</h3>
-        <p>Your posts, comments, and messages become a voice guide built from your own sentences. Give it to any AI tool and the drafts come back sounding like you on a good&nbsp;day.</p>
+        <p>Your posts, comments, and messages become a voice guide in your own sentences. Any AI you hand it to drafts like&nbsp;you.</p>
       </div>
       <div class="card">
         <p class="tag">Yours to keep</p>
         <h3>A backup nobody can thin out</h3>
-        <p>You keep the file and the readout. LinkedIn can change its download again whenever it likes. Your copy does not&nbsp;change.</p>
+        <p>You keep the file and the readout. LinkedIn can thin its download again. Your copy stays&nbsp;whole.</p>
       </div>
     </div>
-    <p class="muted">Two straight facts before you send anything. One: the archive covers your direct connections, the people actually linked to you, so every path in the map is a real relationship, not a scrape. Two: how your posts performed, the impressions and the reactions, is not in this file. It sits in a separate export, your content analytics, covering the last 365 days. Grab that one too and I will match the two&nbsp;together.</p>
+    <p class="muted">Two straight facts. The archive covers your direct connections, so every path in the map is a real relationship. And post performance is not in this file; it lives in a second export, your content analytics, covering the last 365 days. Grab both, and I will match them&nbsp;together.</p>
   </section>
 
   <div class="cta">
     <h2>This weekend, while it is still whole</h2>
-    <p>Two minutes of clicking now, and the file is yours forever. Send it over and I will show you who is really in your network, and what your own history says about where you go&nbsp;next.</p>
+    <p>Two minutes now, and the file is yours for good. Send it over, and I will show you who is in your network, and what your own history says about where you go&nbsp;next.</p>
     <a class="btn" href="mailto:jj@damnjj.wtf?subject=My%20LinkedIn%20export">Email it to jj@damnjj.wtf</a>
-    <p class="small">Stuck on the download? Email me anyway. I will walk you through it, step by&nbsp;step.</p>
+    <p class="small">Stuck on the download? Email me anyway, and I will walk you through&nbsp;it.</p>
   </div>
 
   <footer>
